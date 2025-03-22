@@ -1,19 +1,21 @@
-# MongoDB Atlas
-
 module "mongodb-atlas" {
   source  = "terraform-mongodbatlas-modules/atlas-basic/mongodbatlas"
   org_id = var.org_id
-  project_name = "${var.product_name}-${var.release_name}"
+  project_name = "snackbar"
+  #project_name = data.terraform_remote_state.global.outputs.project_name
   use_existing_project = true
-  cluster_name = "${var.local_name}"
-  provider_name = "TENANT"
-  backing_provider_name = "AWS"
+  cluster_name = data.terraform_remote_state.global.outputs.mongodb_cluster_name
+  provider_name = data.terraform_remote_state.global.outputs.mongodb_provider_name
+  backing_provider_name = data.terraform_remote_state.global.outputs.mongodb_backing_provider_name
   region_name = "US_EAST_1"
+  ip_addresses = ["201.87.82.209"]
+  #cidr_blocks = ["10.30.0.0/16"]
   electable_specs = {
-      instance_size = "M0"
+      instance_size = data.terraform_remote_state.global.outputs.mongodb_instance_size
   }
 
-  ip_addresses = [var.my_ip, var.ec2_instance_public_ip]
+  #ip_addresses = [var.my_ip, var.ec2_instance_public_ip]
+
   database_users = [
       {
         username = var.mongodbatlas_username
@@ -26,7 +28,7 @@ module "mongodb-atlas" {
         ]
         scopes = [
             {
-                name = "${var.local_name}"
+                name = data.terraform_remote_state.global.outputs.mongodb_cluster_name
                 type = "CLUSTER"
             }
         ]
@@ -42,7 +44,7 @@ module "mongodb-atlas" {
         ]
         scopes = [
             {
-                name = "${var.local_name}"
+                name = data.terraform_remote_state.global.outputs.mongodb_cluster_name
                 type = "CLUSTER"
             }
         ]

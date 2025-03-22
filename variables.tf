@@ -1,30 +1,3 @@
-# Global variables
-
-variable "product_name" {
-  description = "Product name"
-  type        = string
-}
-
-variable "release_name" {
-  description = "Release name"
-  type        = string
-}
-
-variable "local_name" {
-  description = "Concatenation of product name, release name and environment"
-  type        = string
-}
-
-variable "my_ip" {
-  description = "My IP address"
-  type        = string
-}
-
-variable "ec2_instance_public_ip" {
-  description = "EC2 instance public IP address"
-  type        = string
-}
-
 # MongoDB Atlas variables
 
 variable "org_id" {
@@ -65,4 +38,10 @@ variable "MONGODB_PASSWORD" {
   description = "MongoDB password"
   type        = string
   sensitive   = true
+}
+
+variable "bucket" {
+  description = "bucket tf state"
+  type        = string
+
 }
