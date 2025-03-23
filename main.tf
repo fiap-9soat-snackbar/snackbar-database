@@ -2,7 +2,6 @@ module "mongodb-atlas" {
   source  = "terraform-mongodbatlas-modules/atlas-basic/mongodbatlas"
   org_id = var.org_id
   project_name = "snackbar"
-  #project_name = data.terraform_remote_state.global.outputs.project_name
   use_existing_project = true
   cluster_name = data.terraform_remote_state.global.outputs.mongodb_cluster_name
   provider_name = data.terraform_remote_state.global.outputs.mongodb_provider_name
@@ -13,8 +12,6 @@ module "mongodb-atlas" {
   electable_specs = {
       instance_size = data.terraform_remote_state.global.outputs.mongodb_instance_size
   }
-
-  #ip_addresses = [var.my_ip, var.ec2_instance_public_ip]
 
   database_users = [
       {
