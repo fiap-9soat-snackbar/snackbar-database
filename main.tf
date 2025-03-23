@@ -8,8 +8,8 @@ module "mongodb-atlas" {
   provider_name = data.terraform_remote_state.global.outputs.mongodb_provider_name
   backing_provider_name = data.terraform_remote_state.global.outputs.mongodb_backing_provider_name
   region_name = "US_EAST_1"
-  ip_addresses = ["201.87.82.209"]
-  #cidr_blocks = ["10.30.0.0/16"]
+  ip_addresses = [var.aws_nat_gateway]
+
   electable_specs = {
       instance_size = data.terraform_remote_state.global.outputs.mongodb_instance_size
   }

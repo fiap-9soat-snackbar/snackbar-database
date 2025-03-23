@@ -40,6 +40,12 @@ variable "MONGODB_PASSWORD" {
   sensitive   = true
 }
 
+variable "aws_nat_gateway" {
+  description = "AWS NAT gateway public IP" 
+  type        = string
+
+}
+
 variable "bucket" {
   description = "bucket tf state"
   type        = string
