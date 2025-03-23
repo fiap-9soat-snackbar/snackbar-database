@@ -61,17 +61,15 @@ resource "null_resource" "run_mongo_script_products" {
   }
   depends_on = [module.mongodb-atlas]
 }
+resource "null_resource" "run_mongo_script_orders" {
+  provisioner "local-exec" {
+    command = <<EOT
+      mongosh "${module.mongodb-atlas.connection_string}" --username ${var.mongodbatlas_username} --password ${var.mongodbatlas_password} --eval "load('03-orders-restore.js')"
+    EOT
+  }
+  depends_on = [module.mongodb-atlas, null_resource.run_mongo_script_products]
+}
 
-#resource "null_resource" "run_mongo_script_orders" {
-#  provisioner "local-exec" {
-#    command = <<EOT
-#      mongosh "${module.mongodb-atlas.connection_string}" --username ${var.mongodbatlas_username} --password ${var.mongodbatlas_password} --eval "load('03-orders-restore.js')"
-#    EOT
-#  }
-#  depends_on = [module.mongodb-atlas, null_resource.run_mongo_script_products]
-#}
-#
-#
 #resource "null_resource" "run_mongo_script_teste" {
 #  provisioner "local-exec" {
 #    command = <<EOT
