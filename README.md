@@ -72,3 +72,31 @@ Stores the orders placed, containing the following fields:
 - `paymentMethod`: Payment method
 - `totalPrice`: Total price
 - `remainingTime`: Remaining time for completion
+
+# Database Choice and Justification
+
+![Database Diagram](database_doc.jpg)
+
+The **Snackbar** application requires a flexible, scalable, and high-performance database to efficiently manage its **menu items (products)** and **customer orders**. After evaluating different database options, we chose **MongoDB Atlas**, a cloud-based **NoSQL document database**, for the following reasons:  
+
+## 1. **Flexible Schema for Dynamic Data**  
+- The `products` and `orders` collections have varying data structures.  
+- **MongoDB's document model** (BSON format) allows storing complex nested data, such as lists of items in an order, without requiring rigid schemas like relational databases.  
+- This provides agility in evolving the application's data structure without costly migrations.  
+
+## 2. **Scalability and Performance**  
+- MongoDB Atlas provides **automatic scaling**, ensuring high availability even with increased demand.  
+- **Sharding** enables distributing data across multiple servers, improving performance.  
+- **Indexing** optimizes queries on frequently accessed fields like `orderNumber` and `cpf`.  
+
+## 3. **Cloud-Native and Managed Service**  
+- **MongoDB Atlas** offers automated backups, monitoring, and security features, reducing operational overhead.  
+- **Multi-region deployment** enhances availability and disaster recovery.  
+
+## 4. **Data Modeling Standards Applied**  
+- **Normalization where necessary**: Reusable product data is stored in the `products` collection, avoiding redundancy.  
+- **Denormalization for performance**: Orders store item details directly (`items` array), optimizing query speed and reducing joins.  
+- **Indexing strategy**: Fields such as `orderNumber`, `cpf`, and `statusOrder` are indexed to improve query performance.  
+
+## Conclusion  
+MongoDB Atlas is the ideal choice for **Snackbar**, offering the flexibility, scalability, and cloud management necessary for efficient and reliable database operations.
