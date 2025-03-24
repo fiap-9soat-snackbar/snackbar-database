@@ -1,73 +1,74 @@
 # Snackbar Database
 
-## Visão Geral
-Este projeto tem como objetivo provisionar o sistema de banco de dados da aplicação **Snackbar**, utilizando **MongoDB Atlas** e **Terraform**.  
+## Overview
+This project aims to provision the **Snackbar** application database system using **MongoDB Atlas** and **Terraform**.  
 
-A infraestrutura é gerenciada pelo **Terraform**, garantindo que o banco de dados seja configurado corretamente e acessível para a aplicação. Além disso, o projeto contém scripts para restaurar os dados iniciais das coleções **products** (produtos do cardápio) e **orders** (pedidos dos clientes) dentro do banco de dados **Snackbar**.
+The infrastructure is managed by **Terraform**, ensuring that the database is correctly configured and accessible to the application. Additionally, the project contains scripts to restore the initial data for the **products** (menu items) and **orders** (customer orders) collections within the **Snackbar** database.  
 
-## Estrutura do Projeto
-O projeto é composto pelos seguintes arquivos:
+## Project Structure
+The project consists of the following files:
 
-- **02-products-restore.js**: Script para restaurar a coleção `products` no MongoDB.
-- **03-orders-restore.js**: Script para restaurar a coleção `orders` no MongoDB.
-- **backend.tf**: Configuração do backend do Terraform.
-- **main.tf**: Define o módulo de provisionamento do MongoDB Atlas via Terraform.
-- **outputs.tf**: Define os outputs do Terraform, como a string de conexão ao banco de dados.
-- **variables.tf**: Define as variáveis sensíveis e configuráveis do Terraform.
+- **02-products-restore.js**: Script to restore the `products` collection in MongoDB.
+- **03-orders-restore.js**: Script to restore the `orders` collection in MongoDB.
+- **backend.tf**: Terraform backend configuration.
+- **main.tf**: Defines the Terraform module for provisioning MongoDB Atlas.
+- **outputs.tf**: Defines Terraform outputs, such as the database connection string.
+- **variables.tf**: Defines sensitive and configurable Terraform variables.
 
-## Tecnologias Utilizadas
-- **MongoDB Atlas**: Banco de dados NoSQL na nuvem.
-- **Terraform**: Infraestrutura como código para provisionamento do banco.
-- **JavaScript**: Utilizado para os scripts de restauração de dados.
+## Technologies Used
+- **MongoDB Atlas**: Cloud-based NoSQL database.
+- **Terraform**: Infrastructure as code for database provisioning.
+- **JavaScript**: Used for data restoration scripts.
 
-## Configuração e Uso
+## Configuration and Usage
 
-### 1. Configurar as variáveis de ambiente
-Antes de executar os scripts e o Terraform, configure as variáveis necessárias no arquivo `variables.tf`, incluindo credenciais de acesso ao MongoDB Atlas e AWS.
+### 1. Set Environment Variables
+Before running the scripts and Terraform, configure the required variables in the `variables.tf` file, including MongoDB Atlas and AWS access credentials.
 
-### 2. Provisionamento da Infraestrutura
-Execute os seguintes comandos para iniciar a infraestrutura:
+### 2. Provision the Infrastructure
+Run the following commands to initialize the infrastructure:
 
 ```sh
 terraform init
 terraform apply
 ```
-Isso irá criar o projeto no MongoDB Atlas e configurar os recursos necessários.
 
-### 3. Restaurar os Dados
-Após o provisionamento, restaure os dados executando os scripts no MongoDB:
+This will create the project in MongoDB Atlas and configure the necessary resources.
+
+### 3. Restore the Data
+After provisioning, restore the data by executing the scripts in MongoDB:
 
 ```sh
-mongosh "<connection_string>" --username <usuario> --password <senha> --eval "load('02-products-restore.js')"
-mongosh "<connection_string>" --username <usuario> --password <senha> --eval "load('03-orders-restore.js')"
+mongosh "<connection_string>" --username <username> --password <password> --eval "load('02-products-restore.js')"
+mongosh "<connection_string>" --username <username> --password <password> --eval "load('03-orders-restore.js')"
 ```
 
-### 4. Verificar os Dados
-Para verificar os dados inseridos, acesse o MongoDB Atlas e consulte as coleções products e orders.
+### 4. Verify the Data
+To check the inserted data, access MongoDB Atlas and query the `products` and `orders` collections.
 
-## Estrutura dos Dados
+## Data Structure
 
-### Coleção `products`
+### `products` Collection
 
-Contém os produtos disponíveis no snackbar, com os seguintes campos:
+Contains the available products in the snackbar with the following fields:
 
-- `name`: Nome do produto
-- `category`: Categoria do produto (Lanche, Bebida, Acompanhamento, etc.)
-- `description`: Descrição do produto
-- `price`: Preço do produto
-- `cookingTime`: Tempo de preparo em minutos
-- `image`: URL da imagem do produto
+- `name`: Product name
+- `category`: Product category (Snack, Beverage, Side, etc.)
+- `description`: Product description
+- `price`: Product price
+- `cookingTime`: Preparation time in minutes
+- `image`: Product image URL
 
-### Coleção orders
+### `orders` Collection
 
-Armazena os pedidos realizados, contendo os campos:
+Stores the orders placed, containing the following fields:
 
-- `orderNumber`: Número do pedido
-- `orderDateTime`: Data e hora do pedido
-- `cpf`: CPF do cliente
-- `name`: Nome do cliente
-- `items`: Lista de itens do pedido (produto, quantidade, preço, etc.)
-- `statusOrder`: Status do pedido (ex: "PAGO")
-- `paymentMethod`: Método de pagamento
-- `totalPrice`: Preço total
-- `remainingTime`: Tempo restante para conclusão
+- `orderNumber`: Order number
+- `orderDateTime`: Order date and time
+- `cpf`: Customer CPF
+- `name`: Customer name
+- `items`: List of order items (product, quantity, price, etc.)
+- `statusOrder`: Order status (e.g., "PAID")
+- `paymentMethod`: Payment method
+- `totalPrice`: Total price
+- `remainingTime`: Remaining time for completion
