@@ -25,3 +25,7 @@ data "terraform_remote_state" "global" {
     key    = "global/terraform.tfstate"
   }
 }
+
+locals {
+  databases = ["snackbar", "snackbar-management", "snackbar-payment", "snackbar-production", "snackbar-order"]
+}

@@ -35,11 +35,11 @@ module "mongodb-atlas" {
         username = var.MONGODB_USER
         password = var.MONGODB_PASSWORD
         roles = [
-            {
-                role = "readWrite"
-                database = "snackbar"
-            }
-        ]
+          for db in local.databases : {
+            role     = "readWrite"
+            database = db
+          }
+      ]
         scopes = [
             {
                 #name = data.terraform_remote_state.global.outputs.mongodb_cluster_name
