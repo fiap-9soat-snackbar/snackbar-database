@@ -6,6 +6,12 @@ variable "org_id" {
   sensitive   = true
 }
 
+variable "mongodb_cluster_name" {
+  description = "Mongo Endpoint"
+  type        = string
+
+}
+
 variable "mongodbatlas_org_public_key" {
   description = "MongoDB Atlas Organization public key"
   type        = string

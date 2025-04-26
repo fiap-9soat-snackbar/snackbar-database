@@ -3,7 +3,7 @@ module "mongodb-atlas" {
   org_id = var.org_id
   project_name = "snackbar"
   use_existing_project = true
-  cluster_name = data.terraform_remote_state.global.outputs.mongodb_cluster_name
+  cluster_name = var.mongodb_cluster_name
   provider_name = data.terraform_remote_state.global.outputs.mongodb_provider_name
   backing_provider_name = data.terraform_remote_state.global.outputs.mongodb_backing_provider_name
   region_name = "US_EAST_1"
@@ -25,7 +25,7 @@ module "mongodb-atlas" {
         ]
         scopes = [
             {
-                name = data.terraform_remote_state.global.outputs.mongodb_cluster_name
+                name = var.mongodb_cluster_name
                 type = "CLUSTER"
             }
         ]
@@ -41,7 +41,7 @@ module "mongodb-atlas" {
         ]
         scopes = [
             {
-                name = data.terraform_remote_state.global.outputs.mongodb_cluster_name
+                name = var.mongodb_cluster_name
                 type = "CLUSTER"
             }
         ]
