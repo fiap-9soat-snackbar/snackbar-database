@@ -25,7 +25,8 @@ module "mongodb-atlas" {
         ]
         scopes = [
             {
-                name = "var.mongodb_cluster_name"
+                #name = data.terraform_remote_state.global.outputs.mongodb_cluster_name
+                name= var.mongodb_cluster_name
                 type = "CLUSTER"
             }
         ]
@@ -41,7 +42,8 @@ module "mongodb-atlas" {
         ]
         scopes = [
             {
-                name = "var.mongodb_cluster_name"
+                #name = data.terraform_remote_state.global.outputs.mongodb_cluster_name
+                name= var.mongodb_cluster_name
                 type = "CLUSTER"
             }
         ]
